@@ -23,7 +23,7 @@ Adafruit_LSM9DS0::Adafruit_LSM9DS0( int32_t sensorID ) {
   _lsm9dso_sensorid_accel = sensorID + 1;
   _lsm9dso_sensorid_mag = sensorID + 2;
   _lsm9dso_sensorid_gyro = sensorID + 3;
-  _lsm9dso_sensorid_temp = sensorID + 4;
+//  _lsm9dso_sensorid_temp = sensorID + 4;
   _accelSensor = Sensor(this, &Adafruit_LSM9DS0::readAccel, &Adafruit_LSM9DS0::getAccelEvent, &Adafruit_LSM9DS0::getAccelSensor);
   _magSensor   = Sensor(this, &Adafruit_LSM9DS0::readMag,   &Adafruit_LSM9DS0::getMagEvent,   &Adafruit_LSM9DS0::getMagSensor);
   _gyroSensor  = Sensor(this, &Adafruit_LSM9DS0::readGyro,  &Adafruit_LSM9DS0::getGyroEvent,  &Adafruit_LSM9DS0::getGyroSensor);
@@ -70,9 +70,9 @@ bool Adafruit_LSM9DS0::begin()
 {
   if (_i2c) {
     Wire.begin();
-  /*
-  SPI access
-  } else if (_clk == -1) {
+  
+  //SPI access
+  } /*else if (_clk == -1) {
     // Hardware SPI
     pinMode(_csxm, OUTPUT);
     pinMode(_csg, OUTPUT);
@@ -349,14 +349,14 @@ void Adafruit_LSM9DS0::getSensor(sensor_t *accel, sensor_t *mag,
  ***************************************************************************/
 void Adafruit_LSM9DS0::write8(boolean type, byte reg, byte value)
 {
-  byte address, _cs;
+  byte address;
 
   if (type == GYROTYPE) {
     address = LSM9DS0_ADDRESS_GYRO;
-    _cs = _csg;
+    //_cs = _csg;
   } else {
     address = LSM9DS0_ADDRESS_ACCELMAG;
-    _cs = _csxm;
+    //_cs = _csxm;
   }
   if (_i2c) {
     Wire.beginTransmission(address);
@@ -391,14 +391,14 @@ byte Adafruit_LSM9DS0::read8(boolean type, byte reg)
 
 byte Adafruit_LSM9DS0::readBuffer(boolean type, byte reg, byte len, uint8_t *buffer)
 {
-  byte address, _cs;
+  byte address;
 
   if (type == GYROTYPE) {
     address = LSM9DS0_ADDRESS_GYRO;
-    _cs = _csg;
+    //_cs = _csg;
   } else {
     address = LSM9DS0_ADDRESS_ACCELMAG;
-    _cs = _csxm;
+    //_cs = _csxm;
   }
 
   if (_i2c) {
