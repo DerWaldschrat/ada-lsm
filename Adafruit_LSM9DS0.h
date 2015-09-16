@@ -67,8 +67,8 @@ class Adafruit_LSM9DS0
 {
   public:
     Adafruit_LSM9DS0 ( int32_t sensorID = 0 );
-    Adafruit_LSM9DS0 ( int8_t xmcs, int8_t gcs, int32_t sensorID = 0 );
-    Adafruit_LSM9DS0 ( int8_t clk, int8_t miso, int8_t mosi, int8_t xmcs, int8_t gcs, int32_t sensorID = 0 );
+    //Adafruit_LSM9DS0 ( int8_t xmcs, int8_t gcs, int32_t sensorID = 0 );
+    //Adafruit_LSM9DS0 ( int8_t clk, int8_t miso, int8_t mosi, int8_t xmcs, int8_t gcs, int32_t sensorID = 0 );
 
     typedef enum
     {
@@ -86,8 +86,8 @@ class Adafruit_LSM9DS0
   
     typedef enum
     {
-      LSM9DS0_REGISTER_TEMP_OUT_L_XM       = 0x05,
-      LSM9DS0_REGISTER_TEMP_OUT_H_XM       = 0x06,
+      //LSM9DS0_REGISTER_TEMP_OUT_L_XM       = 0x05,
+      //LSM9DS0_REGISTER_TEMP_OUT_H_XM       = 0x06,
       LSM9DS0_REGISTER_STATUS_REG_M        = 0x07,
       LSM9DS0_REGISTER_OUT_X_L_M           = 0x08,
       LSM9DS0_REGISTER_OUT_X_H_M           = 0x09,
@@ -170,26 +170,26 @@ class Adafruit_LSM9DS0
     lsm9ds0Vector_t accelData;    // Last read accelerometer data will be available here
     lsm9ds0Vector_t magData;      // Last read magnetometer data will be available here
     lsm9ds0Vector_t gyroData;     // Last read gyroscope data will be available here
-    int16_t         temperature;  // Last read temperzture data will be available here
+    //int16_t         temperature;  // Last read temperzture data will be available here
     
     bool    begin       ( void );
     void    read        ( void );
     void    readAccel   ( void );
     void    readMag     ( void );
     void    readGyro    ( void );
-    void    readTemp    ( void );
+    //void    readTemp    ( void );
     void    setupAccel  ( lsm9ds0AccelRange_t range );
     void    setupMag    ( lsm9ds0MagGain_t gain );
     void    setupGyro   ( lsm9ds0GyroScale_t scale );
     void    write8      ( boolean type, byte reg, byte value );
     byte    read8       ( boolean type, byte reg);
     byte    readBuffer  ( boolean type, byte reg, byte len, uint8_t *buffer);
-    uint8_t spixfer     ( uint8_t data );
+    //uint8_t spixfer     ( uint8_t data );
     
     /* Adafruit Unified Sensor Functions (not standard yet ... the current base class only */
     /* supports one sensor type, and we need to update the unified base class to support   */
     /* multiple sensors in a single driver, returning an array */
-    bool getEvent  ( sensors_event_t* accel, sensors_event_t* mag, sensors_event_t* gyro, sensors_event_t* temp );    
+    bool getEvent  ( sensors_event_t* accel, sensors_event_t* mag, sensors_event_t* gyro );    
     void getSensor ( sensor_t* accel, sensor_t* mag, sensor_t* gyro, sensor_t* temp );
 
     /* Subclass to expose each sensor on the LSM9DS0 as an Adafruit_Sensor instance. */
@@ -231,11 +231,12 @@ class Adafruit_LSM9DS0
     Sensor& getAccel ( void ) { return _accelSensor; }
     Sensor& getMag   ( void ) { return _magSensor; }
     Sensor& getGyro  ( void ) { return _gyroSensor; }
-    Sensor& getTemp  ( void ) { return _tempSensor; }
+    //Sensor& getTemp  ( void ) { return _tempSensor; }
 
   private:
     boolean _i2c;
-    int8_t  _csg, _csxm, _mosi, _miso, _clk;
+    // Remove SPI
+    //int8_t  _csg, _csxm, _mosi, _miso, _clk;
     uint8_t mySPCR, SPCRback;
     float   _accel_mg_lsb;
     float   _mag_mgauss_lsb;
@@ -243,11 +244,12 @@ class Adafruit_LSM9DS0
     int32_t _lsm9dso_sensorid_accel;
     int32_t _lsm9dso_sensorid_mag;
     int32_t _lsm9dso_sensorid_gyro;
-    int32_t _lsm9dso_sensorid_temp;
+    //int32_t _lsm9dso_sensorid_temp;
     Sensor _accelSensor;
     Sensor _magSensor;
     Sensor _gyroSensor;
-    Sensor _tempSensor;
+    // Remove _tempSensor
+    //Sensor _tempSensor;
 
     /* Functions to get individual sensor measurements and metadata. */
     /* Note that these functions will NOT update the sensor state before getting */
@@ -256,11 +258,11 @@ class Adafruit_LSM9DS0
     void getAccelEvent  ( sensors_event_t* event, uint32_t timestamp );
     void getMagEvent    ( sensors_event_t* event, uint32_t timestamp );
     void getGyroEvent   ( sensors_event_t* event, uint32_t timestamp );
-    void getTempEvent   ( sensors_event_t* event, uint32_t timestamp );
+    //void getTempEvent   ( sensors_event_t* event, uint32_t timestamp );
     void getAccelSensor ( sensor_t* sensor );
     void getMagSensor   ( sensor_t* sensor );
     void getGyroSensor  ( sensor_t* sensor );
-    void getTempSensor  ( sensor_t* sensor );
+    //void getTempSensor  ( sensor_t* sensor );
 
 };
 
